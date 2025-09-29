@@ -1,4 +1,3 @@
-# main.py
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from PIL import Image, ImageOps
@@ -129,7 +128,8 @@ async def process(
         out64.append(pil_to_b64(im, quality=92))
 
     return {"count": len(out64), "images": out64}
-  @app.post("/resize")
+
+@app.post("/resize")
 async def resize_image(
     file: UploadFile = File(...),
     target_width: int = Form(3600)
@@ -148,4 +148,3 @@ async def resize_image(
     b64 = base64.b64encode(buf.getvalue()).decode("utf-8")
 
     return {"image": b64}
-
